@@ -8,6 +8,20 @@
 
 > Features:
 
+
+/ArkaBreakout/
+├── Models/
+│   ├── GameModel.swift
+│   └── Bonus.swift
+├── ViewModels/
+│   └── GameState.swift
+├── Views/
+│   └── GameView.swift
+├── ArkaBreakoutApp.swift
+
+
+
+
 ### Tasks
 - [ ] Create...
 - [ ] Integrate...

@@ -1,0 +1,24 @@
+//
+//  AudioFiles.swift
+//  ArkaBreak
+//
+//  Created by M on 20/04/2025.
+//
+
+import Foundation
+
+// MARK: - AudioFiles
+/// Centralisation des noms de fichiers audio pour plus de sécurité et de clarté.
+struct AudioFiles {
+
+    // Background Music
+    static let backgroundMusic = "BackgroundMusic"
+    static let backgroundMusicSettings = "ArcadePuzzler"
+
+    // Sound Effects (SFX)
+    static let brickHit = "brick_hit"
+    static let giftCollected = "Gift"
+    static let maxiBonusCollected = "MaxiBonus"
+    static let winMusic = "Win"
+    static let gameOver = "GameOver"
+}
