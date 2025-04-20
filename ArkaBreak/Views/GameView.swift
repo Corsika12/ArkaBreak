@@ -10,16 +10,20 @@ import Combine
 
 // MARK: - Views
 struct GameView: View {
+    @StateObject private var bonusVM = BonusVM()
     @StateObject private var paddleVM = PaddleVM()
     @StateObject private var gameEngineVM: GameEngineVM
     @State private var nameInput: String = ""
-
+    
     init() {
         let paddleVM = PaddleVM()
+        let bonusVM = BonusVM()
         _paddleVM = StateObject(wrappedValue: paddleVM)
-        _gameEngineVM = StateObject(wrappedValue: GameEngineVM(paddleVM: paddleVM))
+        _bonusVM = StateObject(wrappedValue: bonusVM)
+        _gameEngineVM = StateObject(wrappedValue: GameEngineVM(paddleVM: paddleVM, bonusVM: bonusVM))
     }
 
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -49,14 +53,14 @@ struct GameView: View {
                             .position(x: brick.rect.midX, y: brick.rect.midY)
                     }
                     
-                    ForEach(gameEngineVM.bonuses) { bonus in
+                    ForEach(bonusVM.bonuses) { bonus in
                         Circle()
                             .fill(bonus.type.color)
                             .frame(width: Bonus.size, height: Bonus.size)
                             .overlay(Text(bonus.type.symbol).font(.caption).bold())
                             .position(bonus.pos)
                     }
-                    
+                     
                     ForEach(gameEngineVM.balls) { ball in
                         Circle()
                             .fill(Color.white)

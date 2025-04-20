@@ -6,7 +6,6 @@
 
 import SwiftUI
 
-
 enum BonusType: CaseIterable {
     case multiBall, extraLife, speedUp, paddleShrink
 
