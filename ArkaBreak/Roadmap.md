@@ -47,7 +47,7 @@
 ---
 
 ## Sprint 2
-- 
+- Ajouter une vibration haptique sur iPhone quand le "Go!" apparaît
 
 ---
 

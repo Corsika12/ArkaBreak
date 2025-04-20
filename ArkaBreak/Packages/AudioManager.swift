@@ -1,9 +1,8 @@
 //
-//  AudioManager.swift
 //  ArkaBreak
-//
 //  Created by M on 19/04/2025.
-//
+
+//  Fichier AudioManager.swift
 
 import Foundation
 import AVFoundation
