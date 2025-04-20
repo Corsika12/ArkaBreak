@@ -48,6 +48,7 @@
 
 ## Sprint 2
 - Ajouter une vibration haptique sur iPhone quand le "Go!" apparaît
+- brancher Game Center ou sauvegarde de score locale ?
 
 ---
 

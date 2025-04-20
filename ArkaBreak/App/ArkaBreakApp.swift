@@ -11,22 +11,7 @@ import SwiftUI
 struct ArkaBreakApp: App {
     var body: some Scene {
         WindowGroup {
-            GameView()
+            HomeView()
         }
     }
 }
-
-
-
-/*
-import SwiftUI
-
-@main
-struct ArkaBreakApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
-}
-*/

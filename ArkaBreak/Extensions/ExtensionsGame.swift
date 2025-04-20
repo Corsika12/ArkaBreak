@@ -34,3 +34,16 @@ public extension CGFloat {
         Swift.max(lower, Swift.min(self, upper))
     }
 }
+
+
+extension View {
+    /// Animation d'appui simple pour donner un effet tactile aux boutons
+    func scaleEffectOnTap() -> some View {
+        self.scaleEffect(1)
+            .onTapGesture {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    _ = true
+                }
+            }
+    }
+}

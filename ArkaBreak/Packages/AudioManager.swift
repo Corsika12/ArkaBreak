@@ -47,6 +47,10 @@ final class AudioManager: NSObject, AVAudioPlayerDelegate {
         }
     }
 
+    func setBackgroundMusicVolume(_ volume: Double) {
+        backgroundPlayer?.volume = Float(volume)
+    }
+    
     func stopBackgroundMusic() {
         backgroundPlayer?.stop()
     }
