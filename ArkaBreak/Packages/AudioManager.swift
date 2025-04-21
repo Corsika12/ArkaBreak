@@ -88,3 +88,23 @@ final class AudioManager: NSObject, AVAudioPlayerDelegate {
         }
     }
 }
+
+
+
+extension AudioManager {
+    func playSelectedBackgroundMusic() {
+        let choice = MusicChoice(rawValue: UserDefaults.standard.string(forKey: "selectedMusic") ?? MusicChoice.funky.rawValue) ?? .funky
+
+        let filename: String
+        switch choice {
+        case .funky:
+            filename = AudioFiles.funkyChiptune
+        case .arcade:
+            filename = AudioFiles.arcadePuzzler
+        case .random:
+            filename = Bool.random() ? AudioFiles.funkyChiptune : AudioFiles.arcadePuzzler
+        }
+
+        playBackgroundMusic(filename: filename)
+    }
+}

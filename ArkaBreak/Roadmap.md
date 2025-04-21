@@ -63,7 +63,7 @@ Nous réalisons une adaptation ave une app mobile / casque VR.
 - Bonus : ajouter un cadeau surprise, une bombe explosive... (liste à compléter)
 - Ajouter des cases indestructibles dans niveau Hard.
 - Choix du son pour le fond musical de la partie
-
+- Theme Manager futur possible (mode jour/nuit automatique).
 
 
 

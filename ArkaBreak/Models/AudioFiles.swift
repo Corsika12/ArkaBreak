@@ -11,8 +11,9 @@ import Foundation
 struct AudioFiles {
 
     // Background Music
-    static let backgroundMusic = "BackgroundMusic"
-    static let backgroundMusicSettings = "ArcadePuzzler"
+    // static let backgroundMusic = "BackgroundMusic"
+    static let funkyChiptune = "Funky-Chiptune"
+    static let arcadePuzzler = "ArcadePuzzler"
 
     // Sound Effects (SFX)
     static let brickHit = "brick_hit"

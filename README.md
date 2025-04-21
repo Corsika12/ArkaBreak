@@ -39,7 +39,8 @@ ArkaBreak/
 ├── 📂 Models/
 │   ├── AudioFiles.swift
 │   ├── Bonus.swift
-│   └── GameModel.swift
+│   ├── GameModel.swift
+│   └── SettingsModel.swift
 │
 ├── 📂 ViewModels/
 │   ├── BonusVM.swift

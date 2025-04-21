@@ -56,7 +56,8 @@ struct GameView: View {
                     gameEngineVM.playerName = playerName
                 }
                 gameEngineVM.start(size: geo.size)
-                AudioManager.shared.playBackgroundMusic(filename: AudioFiles.backgroundMusic)
+                AudioManager.shared.playSelectedBackgroundMusic()
+                // AudioManager.shared.playBackgroundMusic(filename: AudioFiles.backgroundMusic)
                 didStartGame = true
             }
             .onDisappear {

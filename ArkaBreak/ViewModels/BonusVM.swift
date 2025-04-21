@@ -5,8 +5,11 @@
 //  Fichier BonusVM.swift
 
 
+
+
 import SwiftUI
 import Combine
+
 
 final class BonusVM: ObservableObject {
     @Published var bonuses: [Bonus] = []
@@ -38,3 +41,4 @@ final class BonusVM: ObservableObject {
         }
     }
 }
+
