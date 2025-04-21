@@ -1,5 +1,4 @@
 # Xcode
-#
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## User settings
@@ -120,3 +119,13 @@ Temporary Items
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
+
+# SwiftPM additional
+.swiftpm/
+Package.resolved
+
+# Xcode result bundles
+*.xcresult
+
+# Xcode Cloud
+.xcodecloud/
