@@ -1,9 +1,10 @@
 //
 //  ArkaBreak
 //  Created by Enzo & M on 18/04/2025.
+//  MARK: - App entry point
 
-//  ArkaBreakApp.swift
-// MARK: - App entry point
+//  Fichier ArkaBreakApp.swift
+
 
 import SwiftUI
 

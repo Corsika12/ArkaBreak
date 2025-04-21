@@ -42,9 +42,7 @@ struct GameView: View {
                     if gameEngineVM.playerName.isEmpty {
                         // Écran de Bienvenue
                         VStack(spacing: 16) {
-                            Text("Bienvenue !")
-                                .font(.largeTitle)
-                                .bold()
+                            
 
                             TextField("Entre ton prénom", text: $nameInput)
                                 .textFieldStyle(.roundedBorder)

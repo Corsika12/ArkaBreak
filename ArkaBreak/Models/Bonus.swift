@@ -33,4 +33,3 @@ struct Bonus: Identifiable {
     let type: BonusType
     static let size: CGFloat = 20
 }
-
