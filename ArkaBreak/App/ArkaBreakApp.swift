@@ -1,7 +1,6 @@
 //
 //  ArkaBreak
 //  Created by Enzo & M on 18/04/2025.
-//  MARK: - App entry point
 
 //  Fichier ArkaBreakApp.swift
 

@@ -9,17 +9,6 @@
 > Features:
 
 
-/ArkaBreakout/
-├── Models/
-│   ├── GameModel.swift
-│   └── Bonus.swift
-├── ViewModels/
-│   └── GameState.swift
-├── Views/
-│   └── GameView.swift
-├── ArkaBreakoutApp.swift
-
-
 
 
 ### Tasks
@@ -49,6 +38,8 @@
 ## Sprint 2
 - Ajouter une vibration haptique sur iPhone quand le "Go!" apparaît
 - brancher Game Center ou sauvegarde de score locale ?
+- Améliorer LauchScreen
+- Ajouter un logo pour l'app
 
 ---
 
