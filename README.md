@@ -51,8 +51,10 @@ ArkaBreak/
 │   ├── GameOverView.swift
 │   ├── GameView.swift
 │   ├── HomeView.swift
+│   ├── LaunchScreenView.swift
 │   ├── OptionsView.swift
-│   └── ScoresView.swift
+│   ├── ScoresView.swift
+│   └── VictoryView.swift
 │
 ├── 📂 Extensions/
 │   └── ExtensionsGame.swift
@@ -64,8 +66,7 @@ ArkaBreak/
 │
 ├── 📂 Resources/
 │   ├── 📂 Sounds
-│   ├── Assets.xcassets
-│   └── LaunchScreen/
+│   └── Assets.xcassets
 │
 ├── 📂 Storage/
 │   └── (future: HighscoreStorage.swift)
