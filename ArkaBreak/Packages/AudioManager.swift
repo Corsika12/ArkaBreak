@@ -29,7 +29,7 @@ final class AudioManager: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    func playBackgroundMusic(filename: String = "background_music", fileExtension: String = "mp3") {
+    func playBackgroundMusic(filename: String = "background_music", fileExtension: String = "mp3", shouldLoop: Bool = true) {
         guard !isMuted else { return }
         guard let url = Bundle.main.url(forResource: filename, withExtension: fileExtension) else {
             print("Fichier audio \(filename).\(fileExtension) introuvable.")
@@ -38,7 +38,7 @@ final class AudioManager: NSObject, AVAudioPlayerDelegate {
 
         do {
             backgroundPlayer = try AVAudioPlayer(contentsOf: url)
-            backgroundPlayer?.numberOfLoops = -1 // Boucle infinie
+            backgroundPlayer?.numberOfLoops = shouldLoop ? -1 : 0
             backgroundPlayer?.volume = 0.5
             backgroundPlayer?.prepareToPlay()
             backgroundPlayer?.play()
@@ -87,24 +87,51 @@ final class AudioManager: NSObject, AVAudioPlayerDelegate {
             sfxPlayers.remove(at: index)
         }
     }
+    
+    // MARK: - Fade Out
+    func fadeOutBackgroundMusic(duration: TimeInterval = 1.5) {
+        guard let player = backgroundPlayer, player.isPlaying else { return }
+        
+        let fadeSteps = 30
+        let fadeInterval = duration / Double(fadeSteps)
+        let volumeStep = player.volume / Float(fadeSteps)
+        
+        var steps = fadeSteps
+
+        Timer.scheduledTimer(withTimeInterval: fadeInterval, repeats: true) { timer in
+            player.volume -= volumeStep
+            steps -= 1
+            
+            if steps <= 0 || player.volume <= 0 {
+                timer.invalidate()
+                player.stop()
+            }
+        }
+    }    
 }
 
 
 
 extension AudioManager {
+    // Utiliser directement un tuple (nom + extension)
+    func playBackgroundMusic(from audioFile: (filename: String, fileExtension: String), shouldLoop: Bool = true) {
+        playBackgroundMusic(filename: audioFile.filename, fileExtension: audioFile.fileExtension, shouldLoop: shouldLoop)
+    }
+
     func playSelectedBackgroundMusic() {
         let choice = MusicChoice(rawValue: UserDefaults.standard.string(forKey: "selectedMusic") ?? MusicChoice.funky.rawValue) ?? .funky
 
-        let filename: String
+        let audioFile: (filename: String, fileExtension: String)
         switch choice {
         case .funky:
-            filename = AudioFiles.funkyChiptune
+            audioFile = AudioFiles.funkyChiptune
         case .arcade:
-            filename = AudioFiles.arcadePuzzler
+            audioFile = AudioFiles.arcadePuzzler
         case .random:
-            filename = Bool.random() ? AudioFiles.funkyChiptune : AudioFiles.arcadePuzzler
+            audioFile = Bool.random() ? AudioFiles.funkyChiptune : AudioFiles.arcadePuzzler
         }
 
-        playBackgroundMusic(filename: filename)
+        playBackgroundMusic(from: audioFile)
     }
 }
+

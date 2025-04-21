@@ -105,6 +105,10 @@ struct VictoryView: View {
             withAnimation(.easeInOut(duration: 1.2)) {
                 showConfetti = true
             }
+                AudioManager.shared.fadeOutBackgroundMusic()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    AudioManager.shared.playBackgroundMusic(from: AudioFiles.winMusic, shouldLoop: false)
+                }
         }
     }
 }

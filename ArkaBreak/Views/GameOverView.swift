@@ -83,6 +83,12 @@ struct GameOverView: View {
             }
             .onAppear {
                 animateTitle = true
+                if !didWin {
+                        AudioManager.shared.fadeOutBackgroundMusic()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            AudioManager.shared.playBackgroundMusic(from: AudioFiles.gameOver, shouldLoop: false)
+                        }
+                }
             }
         }
     }
@@ -90,87 +96,5 @@ struct GameOverView: View {
 
 
 #Preview {
-    GameOverView(playerName: "Test", score: 999, didWin: true)
+    GameOverView(playerName: "Test", score: 999, didWin: false)
 }
-
-
-// Old
-/*
-import SwiftUI
-
-struct GameOverView: View {
-    var playerName: String
-    var score: Int
-    var didWin: Bool
-
-    @Environment(\.dismiss) private var dismiss
-    @State private var navigateToReplay = false
-
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.black.ignoresSafeArea()
-
-                VStack(spacing: 32) {
-                    Text(
-                        didWin
-                        ? (!playerName.isEmpty ? "Félicitations \(playerName) !" : "Félicitations !")
-                        : "Perdu…"
-                    )
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-
-                    Text("Score : \(score)")
-                        .font(.title2)
-                        .foregroundColor(.white.opacity(0.8))
-
-                    VStack(spacing: 16) {
-                        // Bouton Rejouer
-                        Button(action: {
-                            navigateToReplay = true
-                        }) {
-                            Text("Rejouer")
-                                .font(.title3)
-                                .padding(.horizontal, 40)
-                                .padding(.vertical, 14)
-                                .background(Color.white.opacity(0.9))
-                                .clipShape(Capsule())
-                                .foregroundColor(.black)
-                                .shadow(radius: 5)
-                        }
-                        .buttonStyle(.plain)
-                        .scaleEffectOnTap()
-
-                        // Bouton Retour Menu
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Text("Menu Principal")
-                                .font(.title3)
-                                .padding(.horizontal, 40)
-                                .padding(.vertical, 14)
-                                .background(Color.white.opacity(0.7))
-                                .clipShape(Capsule())
-                                .foregroundColor(.black)
-                                .shadow(radius: 3)
-                        }
-                        .buttonStyle(.plain)
-                        .scaleEffectOnTap()
-                    }
-
-                    Spacer()
-                }
-                .padding()
-                .navigationDestination(isPresented: $navigateToReplay) {
-                    GameView()
-                }
-            }
-        }
-    }
-}
-
-#Preview {
-    GameOverView(playerName: "Test", score: 999, didWin: true)
-}
-*/
