@@ -5,8 +5,6 @@
 //  Fichier BonusVM.swift
 
 
-
-
 import SwiftUI
 import Combine
 
@@ -41,4 +39,3 @@ final class BonusVM: ObservableObject {
         }
     }
 }
-

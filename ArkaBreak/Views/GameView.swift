@@ -72,6 +72,7 @@ struct GameView: View {
     @ViewBuilder
     private func gameContent(geo: GeometryProxy) -> some View {
         Group {
+            
             if let countdown = countdownManager.text {
                 Text(countdown)
                     .font(.system(size: countdown == "GO!" ? 90 : 80, weight: .black))
@@ -166,13 +167,27 @@ struct GameView: View {
             }
 
             ForEach(bonusVM.bonuses) { bonus in
-                Circle()
-                    .fill(bonus.type.color)
-                    .frame(width: Bonus.size, height: Bonus.size)
-                    .overlay(Text(bonus.type.symbol)
+                ZStack {
+                    // ✅ Fond blanc
+                    Circle()
+                        .fill(Color.white)
+
+                    // ✅ Remplissage coloré transparent
+                    Circle()
+                        .fill(bonus.type.color)
+
+                    // ✅ Contour net et épais
+                    Circle()
+                        .stroke(bonus.type.color.opacity(1), lineWidth: 2.5)
+
+                    // ✅ Symbole centré
+                    Text(bonus.type.symbol)
                         .font(.caption)
-                        .bold())
-                    .position(bonus.pos)
+                        .bold()
+                        .foregroundColor(.white)
+                }
+                .frame(width: Bonus.size, height: Bonus.size)
+                .position(bonus.pos)
             }
 
             ForEach(gameEngineVM.balls) { ball in

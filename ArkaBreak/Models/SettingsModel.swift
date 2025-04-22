@@ -10,6 +10,7 @@ enum MusicChoice: String, CaseIterable, Identifiable, Codable {
     case funky = "Funky Chiptune"
     case arcade = "Arcade Puzzler"
     case random = "Aléatoire"
+    case nothing = "Silencieux"
 
     var id: String { self.rawValue }
 }

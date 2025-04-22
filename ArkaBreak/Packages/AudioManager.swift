@@ -39,7 +39,7 @@ final class AudioManager: NSObject, AVAudioPlayerDelegate {
         do {
             backgroundPlayer = try AVAudioPlayer(contentsOf: url)
             backgroundPlayer?.numberOfLoops = shouldLoop ? -1 : 0
-            backgroundPlayer?.volume = 0.5
+            backgroundPlayer?.volume = 0.4
             backgroundPlayer?.prepareToPlay()
             backgroundPlayer?.play()
         } catch {
@@ -73,9 +73,11 @@ final class AudioManager: NSObject, AVAudioPlayerDelegate {
 
         do {
             let sfxPlayer = try AVAudioPlayer(contentsOf: url)
+            sfxPlayer.volume = 0.8  // 🔊 Plein volume (max = 1.0)
             sfxPlayers.append(sfxPlayer)
             sfxPlayer.delegate = self
             sfxPlayer.play()
+
         } catch {
             print("Erreur SFX \(soundName) : \(error.localizedDescription)")
         }
@@ -111,7 +113,35 @@ final class AudioManager: NSObject, AVAudioPlayerDelegate {
 }
 
 
+extension AudioManager {
+    func playSelectedBackgroundMusic() {
+        let choice = MusicChoice(rawValue: UserDefaults.standard.string(forKey: "selectedMusic") ?? MusicChoice.funky.rawValue) ?? .funky
 
+        guard choice != .nothing else {
+            fadeOutBackgroundMusic() // Transition douce si "Silencieux"
+            return
+        }
+
+        let audioFile: (filename: String, fileExtension: String)
+        switch choice {
+        case .funky:
+            audioFile = AudioFiles.funkyChiptune
+        case .arcade:
+            audioFile = AudioFiles.arcadePuzzler
+        case .random:
+            audioFile = Bool.random() ? AudioFiles.funkyChiptune : AudioFiles.arcadePuzzler
+        case .nothing:
+            return // déjà géré au-dessus
+        }
+
+        playBackgroundMusic(filename: audioFile.filename, fileExtension: audioFile.fileExtension)
+    }
+}
+
+
+
+
+/*
 extension AudioManager {
     // Utiliser directement un tuple (nom + extension)
     func playBackgroundMusic(from audioFile: (filename: String, fileExtension: String), shouldLoop: Bool = true) {
@@ -129,9 +159,13 @@ extension AudioManager {
             audioFile = AudioFiles.arcadePuzzler
         case .random:
             audioFile = Bool.random() ? AudioFiles.funkyChiptune : AudioFiles.arcadePuzzler
+        case .nothing:
+            audioFile = AudioFiles.funkyChiptune
+            // à remplacer par nil ?
         }
 
-        playBackgroundMusic(from: audioFile)
-    }
-}
+           playBackgroundMusic(from: audioFile)
 
+   }
+}
+*/

@@ -70,7 +70,7 @@ struct VictoryView: View {
                             .padding(.vertical, 14)
                             .background(Color.white.opacity(0.9))
                             .clipShape(Capsule())
-                            .foregroundColor(Color(red: 0.7, green: 0.5, blue: 0.1))
+                            .foregroundColor(Color("ReefGold"))
                             .shadow(radius: 5)
                     }
                     .buttonStyle(.plain)
@@ -88,7 +88,7 @@ struct VictoryView: View {
                             .padding(.vertical, 14)
                             .background(Color.white.opacity(0.9))
                             .clipShape(Capsule())
-                            .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
+                            .foregroundColor(Color("Dune"))
                             .shadow(radius: 5)
                     }
                     .buttonStyle(.plain)
@@ -107,7 +107,12 @@ struct VictoryView: View {
             }
                 AudioManager.shared.fadeOutBackgroundMusic()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    AudioManager.shared.playBackgroundMusic(from: AudioFiles.winMusic, shouldLoop: false)
+                    AudioManager.shared.playBackgroundMusic(
+                        filename: AudioFiles.winMusic.filename,
+                        fileExtension: AudioFiles.winMusic.fileExtension,
+                        shouldLoop: false
+                    )
+
                 }
         }
     }

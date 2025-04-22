@@ -23,7 +23,7 @@ struct HomeView: View {
                     // Titre du jeu
                     Text("ArkaBreak")
                         .font(.system(size: 48, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundColor(Color.white.opacity(0.9))
                         .shadow(radius: 10)
 
                     Spacer()
@@ -32,13 +32,14 @@ struct HomeView: View {
                     Button(action: {
                         navigateToGame = true
                     }) {
-                        Text("Jouer")
+                        Text("Play")
                             .font(.title2)
-                            .padding(.horizontal, 40)
+                            .fontWeight(.semibold)
+                            .frame(width: 200)
                             .padding(.vertical, 14)
-                            .background(Color.white.opacity(0.9))
+                            .background(Color.white.opacity(0.97))
                             .clipShape(Capsule())
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("PalatinateBlue"))
                             .shadow(radius: 5)
                     }
                     .buttonStyle(.plain)
@@ -49,12 +50,12 @@ struct HomeView: View {
                         navigateToScores = true
                     }) {
                         Text("Scores")
-                            .font(.title2)
-                            .padding(.horizontal, 40)
+                            .font(.title3)
+                            .frame(width: 200)
                             .padding(.vertical, 14)
-                            .background(Color.white.opacity(0.7))
+                            .background(Color.white.opacity(0.75))
                             .clipShape(Capsule())
-                            .foregroundColor(.black)
+                            .foregroundColor(Color("Dune"))
                             .shadow(radius: 3)
                     }
                     .buttonStyle(.plain)
@@ -65,8 +66,8 @@ struct HomeView: View {
                         navigateToOptions = true
                     }) {
                         Text("Options")
-                            .font(.title2)
-                            .padding(.horizontal, 40)
+                            .font(.title3)
+                            .frame(width: 200)
                             .padding(.vertical, 14)
                             .background(Color.white.opacity(0.7))
                             .clipShape(Capsule())

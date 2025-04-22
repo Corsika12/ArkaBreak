@@ -86,7 +86,11 @@ struct GameOverView: View {
                 if !didWin {
                         AudioManager.shared.fadeOutBackgroundMusic()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            AudioManager.shared.playBackgroundMusic(from: AudioFiles.gameOver, shouldLoop: false)
+                            AudioManager.shared.playBackgroundMusic(
+                                filename: AudioFiles.gameOver.filename,
+                                fileExtension: AudioFiles.gameOver.fileExtension,
+                                shouldLoop: false
+                            )
                         }
                 }
             }

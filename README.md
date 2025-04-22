@@ -49,6 +49,7 @@ ArkaBreak/
 │   └── PaddleVM.swift
 │
 ├── 📂 Views/
+│   ├── BallView.swift
 │   ├── GameOverView.swift
 │   ├── GameView.swift
 │   ├── HomeView.swift
