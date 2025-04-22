@@ -11,6 +11,10 @@ final class PaddleVM: ObservableObject {
     @Published var paddleX: CGFloat = 0
     @AppStorage("difficultyLevel") private var difficultyLevel: DifficultyLevel = .normal
 
+    var difficulty: DifficultyLevel {
+        difficultyLevel
+    }
+    
     // Base size dépendante de la difficulté
     var paddleBaseSize: CGSize {
         let width: CGFloat

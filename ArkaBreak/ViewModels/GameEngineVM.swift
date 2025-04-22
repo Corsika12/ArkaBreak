@@ -23,6 +23,10 @@ final class GameEngineVM: ObservableObject {
     private var isPaused = false
     private var canvasSize: CGSize = .zero
     private var displayLink: CADisplayLink?
+    // Vitesse du game
+    private var timeElapsed: TimeInterval = 0
+    private let timeSpeedScaleFactor: CGFloat = 0.006 // Coefficient de progression fluide & progressif
+
 
     // ViewModels
     var paddleVM: PaddleVM
@@ -128,9 +132,22 @@ final class GameEngineVM: ObservableObject {
     */
 
     private func resetBalls() {
+        timeElapsed = 0
+        
+        let initialSpeed: CGFloat = {
+            switch paddleVM.difficulty {
+            case .easy: return 5
+            case .normal: return 6
+            case .hard: return 7
+            }
+        }()
+
         balls = [Ball(
             pos: CGPoint(x: canvasSize.width / 2, y: canvasSize.height - 60),
-            vel: CGVector(dx: CGFloat.random(in: -4...4), dy: -4),
+            vel: CGVector(
+                dx: CGFloat.random(in: -initialSpeed...initialSpeed),
+                dy: -initialSpeed
+            ),
             effect: .none
         )]
         bonusVM.effetsBalls(&balls, effect: .none)
@@ -142,11 +159,15 @@ final class GameEngineVM: ObservableObject {
         guard gameStarted, !isGameOver, !isPaused else { return }
 
         let dt = link.targetTimestamp - link.timestamp
+        timeElapsed += dt
 
         if speedUpRemaining > 0 { speedUpRemaining -= dt }
         paddleVM.updateBonusTimers(deltaTime: dt)
 
-        let speedMultiplier: CGFloat = speedUpRemaining > 0 ? 1.5 : 1.0
+        let baseSpeedMultiplier: CGFloat = paddleVM.difficulty.speedMultiplier
+        let progressionMultiplier: CGFloat = 1.0 + (CGFloat(timeElapsed) * timeSpeedScaleFactor).clamped(min: 0, max: 2.0)
+        let speedMultiplier: CGFloat = (speedUpRemaining > 0 ? 1.2 : 1.0) * baseSpeedMultiplier * progressionMultiplier
+
 
         // Move balls
         for i in balls.indices.reversed() {

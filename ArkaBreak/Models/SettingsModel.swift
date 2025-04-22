@@ -22,7 +22,17 @@ enum DifficultyLevel: String, CaseIterable, Identifiable {
     case hard = "Difficile"
 
     var id: String { self.rawValue }
+
+    /// Coefficient de vitesse appliqué au déplacement des balles
+    var speedMultiplier: CGFloat {
+        switch self {
+        case .easy: return 0.8
+        case .normal: return 1.0
+        case .hard: return 1.2
+        }
+    }
 }
+
 
 
 enum Language: String, CaseIterable, Identifiable, Codable {
