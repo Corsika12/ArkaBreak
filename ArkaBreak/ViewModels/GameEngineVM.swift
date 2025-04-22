@@ -26,14 +26,16 @@ final class GameEngineVM: ObservableObject {
 
     // ViewModels
     var paddleVM: PaddleVM
+    var levelManager: LevelsVM
     var bonusVM: BonusVM
-
+    
     // Effects
     private var speedUpRemaining: Double = 0
     let generator = UIImpactFeedbackGenerator()
 
-    init(paddleVM: PaddleVM, bonusVM: BonusVM) {
+    init(paddleVM: PaddleVM, bonusVM: BonusVM, levelManager: LevelsVM) {
         self.paddleVM = paddleVM
+        self.levelManager = levelManager
         self.bonusVM = bonusVM
         self.countdownManager = CountdownManager()
     }
@@ -50,8 +52,9 @@ final class GameEngineVM: ObservableObject {
         speedUpRemaining = 0
         gameStarted = false
         isPaused = false
-
-        createBricks()
+        
+        loadLevel()
+        // createBricks()
         resetBalls()
         bonusVM.bonuses.removeAll()
         bonusVM.setCanvasSize(size)
@@ -92,7 +95,11 @@ final class GameEngineVM: ObservableObject {
         startDisplayLink()
     }
 
-    // MARK: - Game Setup
+    // MARK: - Game Setup Level 1 (prévoir d'autres levels)
+    private func loadLevel() {
+            bricks = levelManager.generateLevelBricks(for: canvasSize)
+        }
+    /*
     private func createBricks() {
         bricks.removeAll()
         let rows = 5
@@ -118,12 +125,16 @@ final class GameEngineVM: ObservableObject {
             }
         }
     }
+    */
 
     private func resetBalls() {
         balls = [Ball(
             pos: CGPoint(x: canvasSize.width / 2, y: canvasSize.height - 60),
-            vel: CGVector(dx: CGFloat.random(in: -4...4), dy: -4)
+            vel: CGVector(dx: CGFloat.random(in: -4...4), dy: -4),
+            effect: .none
         )]
+        bonusVM.effetsBalls(&balls, effect: .none)
+        bonusVM.sizeBalls(&balls, size: .regular)
     }
 
     // MARK: - Game Loop
@@ -205,34 +216,51 @@ final class GameEngineVM: ObservableObject {
     private func applyBonus(_ type: BonusType) {
         switch type {
         case .multiBall:
-            balls.append(contentsOf: balls.map {
-                Ball(pos: $0.pos, vel: CGVector(dx: -$0.vel.dx, dy: $0.vel.dy))
-            })
+            let newBalls = bonusVM.createMultiBalls(from: balls, count: 1)
+            balls.append(contentsOf: newBalls)
+            bonusVM.effetsBalls(&balls, effect: .fast)
             speedUpRemaining += 10
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
+
+        case .explosiveBomb:
+            let newBalls = bonusVM.createMultiBalls(from: balls, count: 8)
+            balls.append(contentsOf: newBalls)
+            bonusVM.effetsBalls(&balls, effect: .fire)
+            bonusVM.sizeBalls(&balls, size: .small)
+            speedUpRemaining += 10
+            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+        
         case .megaBall:
+            bonusVM.sizeBalls(&balls, size: .xl)
+            bonusVM.effetsBalls(&balls, effect: .smoke)
                 speedUpRemaining = 10
         case .extraLife:
             lives += 1
             AudioManager.shared.playSFX(named: "MaxiBonus")
+            speedUpRemaining = 30
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            // mettre un fond dynamique (ex. feu d’artifice rapide derrière ?)
         case .speedUp:
+            bonusVM.effetsBalls(&balls, effect: .fast)
+            bonusVM.sizeBalls(&balls, size: .small)
             speedUpRemaining += 20
             UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         case .paddleShrink:
             paddleVM.activatePaddleShrink()
-            speedUpRemaining += 10
+            bonusVM.effetsBalls(&balls, effect: .electric)
+            speedUpRemaining += 15
             UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         case .largePaddle:
             paddleVM.activateLargePaddle()
+            bonusVM.effetsBalls(&balls, effect: .smoke)
+            speedUpRemaining += 10
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        case .explosiveBomb:
-            speedUpRemaining += 5
-            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         case .scoreBoost:
             score += 250
             AudioManager.shared.playSFX(named: "Gift")
-            speedUpRemaining += 5
+            bonusVM.sizeBalls(&balls, size: .small)
+            bonusVM.effetsBalls(&balls, effect: .fast)
+            speedUpRemaining += 8
         case .surpriseGift:
             // 🎁 Surprise : appliquer un autre bonus au hasard sauf surpriseGift
             let otherBonuses = BonusType.allCases.filter { $0 != .surpriseGift }
@@ -264,3 +292,18 @@ final class GameEngineVM: ObservableObject {
         stopDisplayLink() // ✅ arrêter sur victoire aussi
     }
 }
+
+
+
+/*
+case .multiBall:
+balls.append(contentsOf: balls.map {
+    Ball(pos: $0.pos, vel: CGVector(dx: -$0.vel.dx, dy: $0.vel.dy))
+})
+speedUpRemaining += 10
+UIImpactFeedbackGenerator(style: .light).impactOccurred()
+ 
+ case .explosiveBomb:
+     speedUpRemaining += 5
+     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+*/

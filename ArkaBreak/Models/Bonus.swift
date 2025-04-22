@@ -53,20 +53,20 @@ enum BonusType: CaseIterable {
         switch self {
         case .multiBall:      return Color("Dune")
         case .megaBall:       return Color("Dune")
-        case .extraLife:      return Color("Dune")
+        case .extraLife:      return Color("PalatinateBlue")
         case .speedUp:        return Color("Dune").opacity(0.9)
         case .paddleShrink:   return Color("PalatinateBlue").opacity(0.95)
-        case .largePaddle:    return Color("Gold").opacity(0.1)
-        case .explosiveBomb:  return Color("RedParis").opacity(0.95)
+        case .largePaddle:    return Color("Gold").opacity(0.05)
+        case .explosiveBomb:  return Color("RedParis").opacity(0.1)
         case .scoreBoost:     return Color("PalatinateBlue")
-        case .surpriseGift:   return Color("Gold").opacity(0.1)
+        case .surpriseGift:   return Color("SquashParis").opacity(0.05)
         }
     }
     
     var symbol: String {
         switch self {
         case .multiBall:      return "✨"
-        case .megaBall:       return "🔆"
+        case .megaBall:       return "🌟"
         case .extraLife:      return "+1"
         case .speedUp:        return "⚡️"
         case .paddleShrink:   return "❄️"

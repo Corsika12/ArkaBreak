@@ -23,3 +23,18 @@ enum DifficultyLevel: String, CaseIterable, Identifiable {
 
     var id: String { self.rawValue }
 }
+
+
+enum Language: String, CaseIterable, Identifiable, Codable {
+    case french = "Français"
+    case english = "English"
+
+    var id: String { self.rawValue }
+
+    var displayName: String {
+        switch self {
+        case .french: return "🇫🇷 Français"
+        case .english: return "🇬🇧 English"
+        }
+    }
+}

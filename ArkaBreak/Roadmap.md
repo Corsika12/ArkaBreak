@@ -65,6 +65,7 @@ Nous réalisons une adaptation ave une app mobile / casque VR.
 - Choix du son pour le fond musical de la partie
 - Theme Manager futur possible (mode jour/nuit automatique).
 - Langues (FR / En)
+- Musique fin de partie - victoire
 
 
 ---
